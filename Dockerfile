@@ -2,12 +2,12 @@
 FROM node:18 AS nuxt-build
 
 # Step 1: Build the Nuxt.js frontend
-WORKDIR /app/frontend
+WORKDIR /app/nuxt-app
 
-COPY frontend/package*.json ./
+COPY nuxt-app/package*.json ./
 RUN npm install
 
-COPY frontend/ .
+COPY nuxt-app/ .
 RUN npm run build
 
 # Step 2: Set up Laravel backend
@@ -25,13 +25,13 @@ RUN apt-get update && apt-get install -y \
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 # Copy Laravel files
-COPY backend/ .
+COPY rescape-be/ .
 
 # Install Laravel dependencies
 RUN composer install
 
 # Step 3: Copy built Nuxt.js files into Laravel's public directory
-COPY --from=nuxt-build /app/frontend/.output/public ./public/frontend
+COPY --from=nuxt-build /app/nuxt-app/.output/public ./public/nuxt-app
 
 # Set permissions for Laravel
 RUN chown -R www-data:www-data /var/www && \
