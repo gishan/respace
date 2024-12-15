@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply text-surface-black bg-surface-white;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply px-4 py-2 rounded-lg font-medium transition-colors duration-200;
+  }
+  .btn-primary {
+    @apply bg-brand-yellow text-surface-black hover:bg-opacity-90;
+  }
+  .btn-secondary {
+    @apply bg-surface-black text-surface-white hover:bg-opacity-90;
+  }
+  
+  .nav-container {
+    @apply bg-nav text-surface-white;
+  }
+  
+  .footer-container {
+    @apply bg-footer text-surface-white;
+  }
+  
+  .section-white {
+    @apply bg-surface-white;
+  }
+  
+  .section-cream {
+    @apply bg-surface-cream;
+  }
+  
+  .icon {
+    @apply text-brand-red;
+  }
+}

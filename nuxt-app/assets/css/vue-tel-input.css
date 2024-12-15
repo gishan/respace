@@ -1,0 +1,105 @@
+.vue-tel-input {
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-top: 0.25rem;
+}
+
+.vti__dropdown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.625rem;
+  cursor: pointer;
+  background: white;
+  border: 1px solid #D1D5DB;
+  border-radius: 0.5rem 0 0 0.5rem;
+  border-right: none;
+  transition: all 0.15s ease-in-out;
+}
+
+.vti__dropdown.open {
+  border-color: #F59E0B;
+  box-shadow: 0 0 0 1px #F59E0B;
+}
+
+.vti__dropdown:hover {
+  border-color: #F59E0B;
+}
+
+.vti__selection {
+  font-size: 1rem;
+  color: #374151;
+  display: flex;
+  align-items: center;
+}
+
+.vti__country-code {
+  color: #374151;
+  font-size: 1rem;
+}
+
+.vti__input {
+  flex: 1;
+  background: white;
+  padding: 0.625rem;
+  outline: none;
+  border: 1px solid #D1D5DB;
+  border-radius: 0 0.5rem 0.5rem 0;
+  font-size: 1rem;
+  color: #374151;
+  width: 100%;
+  transition: all 0.15s ease-in-out;
+  line-height: 1.5;
+}
+
+.vti__input:focus {
+  border-color: #F59E0B;
+  box-shadow: 0 0 0 1px #F59E0B;
+}
+
+.vti__input:hover {
+  border-color: #F59E0B;
+}
+
+.vti__flag {
+  margin-right: 0.5rem;
+  width: 25px;
+}
+
+.vti__dropdown-list {
+  z-index: 1;
+  padding: 0.5rem 0;
+  margin-top: 0.5rem;
+  border-radius: 0.5rem;
+  background: white;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  max-height: 200px;
+  overflow-y: auto;
+  position: absolute;
+  width: 300px;
+  border: 1px solid #E5E7EB;
+}
+
+.vti__dropdown-item {
+  padding: 0.625rem 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  transition: all 0.15s ease-in-out;
+}
+
+.vti__dropdown-item:hover {
+  background: #FEF3C7;
+}
+
+.vti__dropdown-item.selected {
+  background: #FEF3C7;
+  color: #92400E;
+}
+
+.vti__dropdown-item .vti__flag {
+  margin-right: 0.75rem;
+}

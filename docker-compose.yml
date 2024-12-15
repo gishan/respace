@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  app:
+    platform: linux/arm64
+    build:
+      args:
+        user: rescape
+        uid: 1000
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"  # Laravel backend
+      - "3000:3000"  # Nuxt frontend
+    volumes:
+      - ./rescape-be:/var/www/html
+      - ./nuxt-app:/var/www/nuxt-app
+    environment:
+      - APP_ENV=local
+      - DB_CONNECTION=pgsql
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_DATABASE=rescape
+      - DB_USERNAME=rescape
+      - DB_PASSWORD=rescape_password
+    depends_on:
+      - db
+
+  db:
+    platform: linux/arm64
+    image: postgres:15-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=rescape
+      - POSTGRES_USER=rescape
+      - POSTGRES_PASSWORD=rescape_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
