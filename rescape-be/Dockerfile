@@ -36,11 +36,14 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
 # Install composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Set working directory
-WORKDIR /var/www/html
+# Copy composer files first
+COPY composer.* ./
 
-# Copy composer files first to leverage Docker cache
-COPY composer.json composer.lock ./
+# Install composer dependencies
+RUN composer install --no-scripts --no-autoloader --ignore-platform-reqs
+
+# Copy the rest of the application code
+COPY . .
 
 # Set directory permissions
 RUN mkdir -p /var/www/html/storage/framework/{sessions,views,cache} \
@@ -48,20 +51,11 @@ RUN mkdir -p /var/www/html/storage/framework/{sessions,views,cache} \
     && mkdir -p /var/www/html/bootstrap/cache \
     && chown -R www-data:www-data /var/www/html \
     && chmod -R 775 /var/www/html/storage \
-    && chmod -R 775 /var/www/html/bootstrap/cache
+    && chmod -R 775 /var/www/html/bootstrap/cache \
+    && chmod -R 775 /var/www/html/vendor
 
-# Install composer dependencies
-RUN composer install --no-scripts --no-autoloader --no-interaction --prefer-dist
-
-# Copy the rest of the application code
-COPY . .
-
-# Generate the autoloader
+# Generate the autoloader and optimize
 RUN composer dump-autoload --optimize
-
-# Final permission setup
-RUN chown -R www-data:www-data /var/www/html/storage \
-    && chown -R www-data:www-data /var/www/html/bootstrap/cache
 
 # Expose port 8000 for php artisan serve
 EXPOSE 8000
