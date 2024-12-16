@@ -36,7 +36,7 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 COPY composer*.json ./
 
 # Install project dependencies
-RUN composer install --no-scripts --no-autoloader
+RUN composer install --no-scripts --no-autoloader --ignore-platform-reqs
 
 # Copy project files
 COPY . .
