@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     zip \
     unzip \
+    libpq-dev \
     git \
     curl \
     default-mysql-client \
@@ -21,7 +22,6 @@ RUN apt-get update && apt-get install -y \
 # Install PHP extensions
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install \
-    pdo_mysql \
     pdo_pgsql \
     mbstring \
     zip \
