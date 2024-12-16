@@ -50,8 +50,8 @@ RUN chown -R www-data:www-data /var/www/html/storage \
     && chown -R www-data:www-data /var/www/html/bootstrap/cache \
     && chmod -R 775 /var/www/html/bootstrap/cache
 
-# Expose port 9000
-EXPOSE 9000
+# Expose port 8000 for php artisan serve
+EXPOSE 8000
 
-# Start PHP-FPM
-CMD ["php-fpm"]
+# Start the application: Run migrations and start the Laravel server
+CMD php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=8000
