@@ -1,4 +1,18 @@
-# Base image (Debian-based)
+# Build stage
+FROM composer:2 as vendor
+
+WORKDIR /app
+
+COPY composer.* ./
+
+RUN composer install \
+    --ignore-platform-reqs \
+    --no-interaction \
+    --no-plugins \
+    --no-scripts \
+    --prefer-dist
+
+# Main stage
 FROM php:8.2-fpm-bullseye
 
 WORKDIR /var/www/html
@@ -33,16 +47,13 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
     gd \
     intl
 
-# Install composer
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+# Copy composer from vendor stage
+COPY --from=vendor /usr/bin/composer /usr/bin/composer
 
-# Copy composer files first
-COPY composer.* ./
+# Copy vendor directory from vendor stage
+COPY --from=vendor /app/vendor/ ./vendor/
 
-# Install composer dependencies
-RUN composer install --no-scripts --no-autoloader --ignore-platform-reqs
-
-# Copy the rest of the application code
+# Copy application code
 COPY . .
 
 # Set directory permissions
@@ -54,10 +65,8 @@ RUN mkdir -p /var/www/html/storage/framework/{sessions,views,cache} \
     && chmod -R 775 /var/www/html/bootstrap/cache \
     && chmod -R 775 /var/www/html/vendor
 
-# Generate the autoloader and optimize
+# Generate the autoloader
 RUN composer dump-autoload --optimize
-
-RUN composer update
 
 # Expose port 8000 for php artisan serve
 EXPOSE 8000
