@@ -33,26 +33,35 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
 # Install composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Copy composer files
-COPY composer*.json ./
+# Set working directory
+WORKDIR /var/www/html
 
-# Install project dependencies
-RUN composer install --no-scripts --no-autoloader --ignore-platform-reqs
+# Copy composer files first to leverage Docker cache
+COPY composer.json composer.lock ./
 
-# Copy project files
+# Set directory permissions
+RUN mkdir -p /var/www/html/storage/framework/{sessions,views,cache} \
+    && mkdir -p /var/www/html/storage/logs \
+    && mkdir -p /var/www/html/bootstrap/cache \
+    && chown -R www-data:www-data /var/www/html \
+    && chmod -R 775 /var/www/html/storage \
+    && chmod -R 775 /var/www/html/bootstrap/cache
+
+# Install composer dependencies
+RUN composer install --no-scripts --no-autoloader --no-interaction --prefer-dist
+
+# Copy the rest of the application code
 COPY . .
 
-# Generate optimized autoload files
+# Generate the autoloader
 RUN composer dump-autoload --optimize
 
-# Set permissions
+# Final permission setup
 RUN chown -R www-data:www-data /var/www/html/storage \
-    && chmod -R 775 /var/www/html/storage \
-    && chown -R www-data:www-data /var/www/html/bootstrap/cache \
-    && chmod -R 775 /var/www/html/bootstrap/cache
+    && chown -R www-data:www-data /var/www/html/bootstrap/cache
 
 # Expose port 8000 for php artisan serve
 EXPOSE 8000
 
-# Start the application: Run migrations and start the Laravel server
-CMD php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=8000
+# Create storage link and start the application
+CMD php artisan storage:link && php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=8000
