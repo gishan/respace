@@ -57,6 +57,8 @@ RUN mkdir -p /var/www/html/storage/framework/{sessions,views,cache} \
 # Generate the autoloader and optimize
 RUN composer dump-autoload --optimize
 
+RUN composer update
+
 # Expose port 8000 for php artisan serve
 EXPOSE 8000
 
