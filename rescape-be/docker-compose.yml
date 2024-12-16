@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8000:8000" # Map Laravel server to host
+      - "8000:8000"
     environment:
       DB_CONNECTION: pgsql
       DB_HOST: postgres
@@ -14,21 +14,37 @@ services:
       DB_DATABASE: respace
       DB_USERNAME: postgres
       DB_PASSWORD: gishan
+      POSTGRES_HOST_AUTH_METHOD: trust
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     volumes:
       - .:/var/www/html
+    networks:
+      - respace-network
 
   postgres:
-    image: postgres:15-alpine
+    image: postgres:15-bullseye
     ports:
       - "5432:5432"
     environment:
       POSTGRES_DB: respace
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: gishan
+      POSTGRES_HOST_AUTH_METHOD: trust
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - respace-network
 
 volumes:
   postgres_data:
+
+networks:
+  respace-network:
+    driver: bridge
