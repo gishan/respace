@@ -176,8 +176,8 @@ const validatePhone = ({ isValid, number }) => {
 const handleSubmit = async () => {
   try {
     isSubmitting.value = true
-    
-    const response = await fetch(`${process.env.NUXT_PUBLIC_API_BASE}/contact`, {
+    const config = useRuntimeConfig();
+    const response = await fetch(`${config.public.apiBase}/contact`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

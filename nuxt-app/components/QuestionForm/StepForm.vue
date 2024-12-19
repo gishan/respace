@@ -203,12 +203,6 @@ const questions = [
     title: 'Brand Contact Information',
     type: 'contact-form',
     subtitle: 'Additional Considerations',
-    fields: [
-      { id: 'name', label: 'Name', type: 'text' },
-      { id: 'email', label: 'Email', type: 'email' },
-      { id: 'phone', label: 'Phone Number', type: 'tel' },
-      { id: 'website', label: 'Company Website', type: 'url' }
-    ]
   },
   {
     id: 'consent',
@@ -275,7 +269,7 @@ const canProceed = (questionId) => {
   const question = questions.find(q => q.id === questionId)
   const answer = answers.value[questionId]
 
-  if (!answer) return false
+  if (!answer && question.type !== 'contact-form') return false
 
   switch (question.type) {
     case 'text':
@@ -287,7 +281,7 @@ const canProceed = (questionId) => {
     case 'checkboxes':
       return Array.isArray(answer) && answer.length > 0
     case 'contact-form':
-      return Object.values(answer).every(value => value && value.trim().length > 0)
+      return true
     default:
       return true
   }
@@ -315,7 +309,7 @@ async function handleSubmit() {
       target_demographic_specific: answers.value['target-demographic']?.find(item => item.id === 'specific')?.other,
       location_type: answers.value['location-type']?.id,
       space_size: answers.value['space-size']?.id,
-      amenities: answers.value['amenities']?.map(item => item.id) || [],
+      // amenities: answers.value['amenities']?.map(item => item.id) || [],
       budget: answers.value['budget']?.id,
       timeline: answers.value['timeline']?.id,
       duration: answers.value['duration']?.id,
@@ -327,7 +321,9 @@ async function handleSubmit() {
       contact_role: answers.value['contact']?.role
     }
 
-    const response = await fetch(`${process.env.NUXT_PUBLIC_API_BASE}/brand-inquiries`, {
+    console.log('Formatted data:', formData);
+    const config = useRuntimeConfig();
+    const response = await fetch(`${config.public.apiBase}/brand-inquiries`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -403,23 +399,64 @@ const isLastStep = () => currentStep.value === questions.length - 1
 
       <!-- Contact Form -->
       <div v-else-if="questions[currentStep].type === 'contact-form'" class="max-w-xl mx-auto space-y-4">
-        <div v-for="field in questions[currentStep].fields" :key="field.id" class="space-y-2">
-          <label :for="field.id" class="block text-sm font-medium text-gray-700">{{ field.label }}</label>
-          <div class="relative">
-            <input
-              :type="field.type"
-              :id="field.id"
-              v-model="answers[questions[currentStep].id][field.id]"
-              class="w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-brand-red transition-colors"
-              :class="{
-                'border-gray-200': !answers[questions[currentStep].id]?.[field.id],
-                'border-brand-red': answers[questions[currentStep].id]?.[field.id]
-              }"
-            >
-            <div v-if="field.icon" class="absolute left-4 top-1/2 transform -translate-y-1/2">
-              <img :src="field.icon" :alt="field.label" class="w-6 h-6 object-contain">
-            </div>
-          </div>
+        <!-- Name -->
+        <div class="space-y-2">
+          <label class="block text-sm font-medium text-gray-700">Name</label>
+          <input
+            type="text"
+            v-model="answers['name']"
+            class="w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-brand-red transition-colors"
+            :class="{
+              'border-gray-200': !answers['name'],
+              'border-brand-red': answers['name']
+            }"
+            placeholder="Enter your name"
+          >
+        </div>
+
+        <!-- Email -->
+        <div class="space-y-2">
+          <label class="block text-sm font-medium text-gray-700">Email</label>
+          <input
+            type="email"
+            v-model="answers['email']"
+            class="w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-brand-red transition-colors"
+            :class="{
+              'border-gray-200': !answers['email'],
+              'border-brand-red': answers['email']
+            }"
+            placeholder="Enter your email"
+          >
+        </div>
+
+        <!-- Phone -->
+        <div class="space-y-2">
+          <label class="block text-sm font-medium text-gray-700">Phone Number</label>
+          <input
+            type="tel"
+            v-model="answers['phone']"
+            class="w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-brand-red transition-colors"
+            :class="{
+              'border-gray-200': !answers['phone'],
+              'border-brand-red': answers['phone']
+            }"
+            placeholder="Enter your phone number"
+          >
+        </div>
+
+        <!-- Website -->
+        <div class="space-y-2">
+          <label class="block text-sm font-medium text-gray-700">Company Website</label>
+          <input
+            type="url"
+            v-model="answers['website']"
+            class="w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-brand-red transition-colors"
+            :class="{
+              'border-gray-200': !answers['website'],
+              'border-brand-red': answers['website']
+            }"
+            placeholder="Enter your company website"
+          >
         </div>
       </div>
 
