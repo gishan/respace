@@ -4,6 +4,9 @@ import QuestionCard from './QuestionCard.vue'
 
 const currentStep = ref(0)
 const answers = ref({})
+const isSubmitting = ref(false)
+const submitError = ref(null)
+const submitSuccess = ref(false)
 
 const questions = [
   {
@@ -290,12 +293,63 @@ const canProceed = (questionId) => {
   }
 }
 
-const handleSubmit = () => {
-  if (isLastStep()) {
-    console.log('Form submitted:', answers.value)
-    // Here you can handle the form submission
-  } else {
-    nextStep()
+async function handleSubmit() {
+  if (!isLastStep()) return nextStep()
+  
+  try {
+    isSubmitting.value = true
+    submitError.value = null
+
+    console.log('Form submitted:', answers.value);
+    
+    // Format the data according to the API requirements
+    const formData = {
+      brand_name: answers.value['brand-name'],
+      product_category: answers.value['product-category']?.id,
+      product_category_other: answers.value['product-category']?.other,
+      brand_stage: answers.value['brand-stage']?.id,
+      activation_purpose: answers.value['activation-purpose']?.id,
+      experience_type: answers.value['experience-type']?.id,
+      showcase_preference: answers.value['showcase-preference']?.id,
+      target_demographic: answers.value['target-demographic']?.map(item => item.id) || [],
+      target_demographic_specific: answers.value['target-demographic']?.find(item => item.id === 'specific')?.other,
+      location_type: answers.value['location-type']?.id,
+      space_size: answers.value['space-size']?.id,
+      amenities: answers.value['amenities']?.map(item => item.id) || [],
+      budget: answers.value['budget']?.id,
+      timeline: answers.value['timeline']?.id,
+      duration: answers.value['duration']?.id,
+      special_requirements: answers.value['special-requirements'],
+      contact_name: answers.value['contact']?.name,
+      contact_email: answers.value['contact']?.email,
+      contact_phone: answers.value['contact']?.phone,
+      contact_company: answers.value['contact']?.company,
+      contact_role: answers.value['contact']?.role
+    }
+
+    const response = await fetch(`${process.env.NUXT_PUBLIC_API_BASE}/brand-inquiries`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
+
+    if (!response.ok) {
+      const errorData = await response.json()
+      throw new Error(errorData.message || 'Failed to submit form')
+    }
+    
+    submitSuccess.value = true
+    // Reset form after successful submission
+    answers.value = {}
+    currentStep.value = 0
+  } catch (error) {
+    console.error('Form submission error:', error);
+    submitError.value = error.message || 'An error occurred while submitting the form. Please try again.'
+  } finally {
+    isSubmitting.value = false
   }
 }
 
@@ -513,7 +567,7 @@ const isLastStep = () => currentStep.value === questions.length - 1
       
       <button
         @click="handleSubmit"
-        :disabled="!canProceed(questions[currentStep].id)"
+        :disabled="!canProceed(questions[currentStep].id) || isSubmitting"
         class="px-6 py-2 bg-gray-200 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {{ isLastStep() ? 'Submit' : 'Next' }}

@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\PageController;
+use App\Http\Controllers\BrandInquiryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group(['middleware' => ['api']], function () {
     // Contact form route
     Route::post('/contact', [ContactController::class, 'store']);
+
+    // Brand inquiries endpoint
+    Route::post('/brand-inquiries', [BrandInquiryController::class, 'store']);
 
     // Pages routes
     Route::prefix('pages')->group(function () {
