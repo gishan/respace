@@ -132,8 +132,8 @@ const questions = [
   {
     id: 'amenities',
     title: 'Desired Amenities',
-    type: 'Space Requirements',
-    subtitle: null,
+    type: 'single-select',
+    subtitle: 'Space Requirements',
     options: [
       { id: 'kitchen', label: 'Kitchen/Food Prep Area' },
       { id: 'shelving', label: 'Display Shelving' },
