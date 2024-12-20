@@ -244,10 +244,10 @@ const updateContactField = (questionId, fieldId, value) => {
 }
 
 const nextStep = () => {
-  if (currentStep.value < questions.length - 1) {
-    currentStep.value++
-  } else {
-    console.log('Form completed:', answers.value)
+  if (canProceed(questions[currentStep.value].id)) {
+    if (currentStep.value < questions.length - 1) {
+      currentStep.value++
+    }
   }
 }
 
@@ -266,25 +266,28 @@ const isMultiSelected = (questionId, optionId) => {
 }
 
 const canProceed = (questionId) => {
-  const question = questions.find(q => q.id === questionId)
+  const currentQuestion = questions[currentStep.value]
   const answer = answers.value[questionId]
 
-  if (!answer && question.type !== 'contact-form') return false
-
-  switch (question.type) {
-    case 'text':
-    case 'textarea':
-      return answer.trim().length > 0
-    case 'single-select':
-      return !!answer
-    case 'multi-select':
-    case 'checkboxes':
-      return Array.isArray(answer) && answer.length > 0
-    case 'contact-form':
-      return true
-    default:
-      return true
+  if (currentQuestion.type === 'text') {
+    return answer && answer.trim() !== ''
   }
+
+  if (currentQuestion.type === 'single-select') {
+    return answer !== undefined
+  }
+
+  if (currentQuestion.type === 'multi-select') {
+    return Array.isArray(answer) && answer.length > 0
+  }
+
+  if (currentQuestion.type === 'contact-form') {
+    // Add validation for contact form
+    const requiredFields = ['name', 'email', 'phone']
+    return requiredFields.every(field => answers.value[field] && answers.value[field].trim() !== '')
+  }
+
+  return true
 }
 
 async function handleSubmit() {
@@ -603,7 +606,7 @@ const isLastStep = () => currentStep.value === questions.length - 1
       </button>
       
       <button
-        @click="handleSubmit"
+        @click="isLastStep() ? handleSubmit() : nextStep()"
         :disabled="!canProceed(questions[currentStep].id) || isSubmitting"
         class="px-6 py-2 bg-gray-200 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed"
       >
