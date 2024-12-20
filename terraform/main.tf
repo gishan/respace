@@ -10,15 +10,15 @@ terraform {
 # Configure the Google Cloud provider
 provider "google" {
   # Replace with your project ID
-  project = "YOUR_PROJECT_ID"
-  region  = "us-central1"
-  zone    = "us-central1-a"
+  project = var.project_id
+  region  = var.region
+  zone    = var.zone
 }
 
-# Create a spot VM instance
-resource "google_compute_instance" "spot_vm" {
-  name         = "spot-vm"
-  machine_type = "e2-medium"
+# Create a frontend spot VM instance
+resource "google_compute_instance" "frontend_spot_vm" {
+  name         = "frontend-spot-vm"
+  machine_type = var.machine_type
   
   # Spot VM configuration
   scheduling {
@@ -41,9 +41,14 @@ resource "google_compute_instance" "spot_vm" {
   }
 
   # Add any additional tags if needed
-  tags = ["spot-instance"]
+  tags = ["frontend-spot-instance"]
 
   metadata = {
     shutdown-script = "echo 'Shutting down'"
   }
+}
+
+# Output the frontend instance IP
+output "frontend_instance_ip" {
+  value = google_compute_instance.frontend_spot_vm.network_interface[0].access_config[0].nat_ip
 }
