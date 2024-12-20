@@ -1,12 +1,16 @@
 version: "3.8"
 
 services:
-  app:
+  apache:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.apache
     ports:
-      - "8000:8000"
+      - "8000:80"
+    volumes:
+      - .:/var/www/html
+      - ./apache/apache2.conf:/etc/apache2/apache2.conf
+      - ./apache/000-default.conf:/etc/apache2/sites-available/000-default.conf
     environment:
       DB_CONNECTION: pgsql
       DB_HOST: postgres
@@ -15,6 +19,7 @@ services:
       DB_USERNAME: postgres
       DB_PASSWORD: gishan
       POSTGRES_HOST_AUTH_METHOD: trust
+      APACHE_DOCUMENT_ROOT: /var/www/html/public
     depends_on:
       postgres:
         condition: service_healthy
