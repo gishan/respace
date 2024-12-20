@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile.apache
     ports:
-      - "8000:80"
+      - "8000:8000"
     volumes:
       - .:/var/www/html
       - ./apache/apache2.conf:/etc/apache2/apache2.conf
