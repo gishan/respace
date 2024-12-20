@@ -32,19 +32,7 @@ import StepForm from './components/QuestionForm/StepForm.vue'
     <section class="py-20">
       <div class="container mx-auto px-6">
         <h2 class="text-3xl font-bold text-center mb-12">Find Your Perfect Space</h2>
-        <ClientOnly>
-          <template #default>
-            <StepForm />
-          </template>
-          <template #fallback>
-            <div class="flex justify-center items-center p-12">
-              <div class="text-center">
-                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-yellow-600 mx-auto"></div>
-                <p class="mt-4 text-gray-600">Loading form...</p>
-              </div>
-            </div>
-          </template>
-        </ClientOnly>
+        <StepForm />
       </div>
     </section>
 
