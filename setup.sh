@@ -69,20 +69,3 @@ curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
 source ~/.profile
 nvm install 20.9.0
 npm install -g yarn
-
-# Install Nginx
-sudo apt install nginx
-sudo systemctl start nginx
-sudo systemctl enable nginx
-sudo nginx -t
-sudo systemctl reload nginx
-
-# Install postgresql
-sudo apt install postgresql postgresql-contrib -y
-sudo systemctl start postgresql@13-main
-sudo -u postgres psql <<EOF
--- Create the database
-CREATE DATABASE my_database
-LTER USER postgres PASSWORD 'gishan';
-\q
-EOF

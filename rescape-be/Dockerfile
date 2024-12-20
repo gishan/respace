@@ -18,7 +18,7 @@ FROM php:8.2-fpm-bullseye
 WORKDIR /var/www/html
 
 # Install Node.js
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
     && apt-get install -y nodejs \
     && npm install -g npm@latest
 
