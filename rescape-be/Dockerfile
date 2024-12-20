@@ -17,6 +17,11 @@ FROM php:8.2-fpm-bullseye
 
 WORKDIR /var/www/html
 
+# Install Node.js
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+    && apt-get install -y nodejs \
+    && npm install -g npm@latest
+
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     libpng-dev \
@@ -56,6 +61,9 @@ COPY --from=vendor /app/vendor/ ./vendor/
 # Copy application code
 COPY . .
 
+# Install npm dependencies
+RUN npm install
+
 # Set directory permissions
 RUN mkdir -p /var/www/html/storage/framework/{sessions,views,cache} \
     && mkdir -p /var/www/html/storage/logs \
@@ -65,11 +73,13 @@ RUN mkdir -p /var/www/html/storage/framework/{sessions,views,cache} \
     && chmod -R 775 /var/www/html/bootstrap/cache \
     && chmod -R 775 /var/www/html/vendor
 
+# Make start script executable
+RUN chmod +x /var/www/html/docker/start.sh
+
 # Generate the autoloader
 RUN composer dump-autoload --optimize
 
-# Expose port 8000 for php artisan serve
-EXPOSE 8000
+# Expose port 8000 for php artisan serve and 5173 for Vite
+EXPOSE 8000 5173
 
-# Create storage link and start the application
-CMD php artisan storage:link && php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=8000
+CMD ["/var/www/html/docker/start.sh"]
