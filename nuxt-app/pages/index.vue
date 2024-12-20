@@ -1,6 +1,10 @@
 <!-- pages/index.vue -->
 <script setup>
 import StepForm from './components/QuestionForm/StepForm.vue'
+
+definePageMeta({
+  ssr: true
+})
 </script>
 
 <template>
