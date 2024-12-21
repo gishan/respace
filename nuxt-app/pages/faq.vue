@@ -52,7 +52,8 @@ definePageMeta({
   ssr: true
 })
 
-const { data: faqData } = await useFetch('http://127.0.0.1:8000/api/pages/faq')
+const config = useRuntimeConfig();
+const { data: faqData } = await useFetch(`${config.public.apiBase}/pages/faq`)
 
 const brandFaqs = computed(() => faqData?.value.data.blocks.find(block => block.data.type === 'brand').data.faqs || [])
 const spaceFaqs = computed(() => faqData?.value.data.blocks.find(block => block.data.type === 'space').data.faqs || [])
