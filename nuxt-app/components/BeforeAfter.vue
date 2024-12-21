@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="container mx-auto">
     <!-- Before Section -->
     <div class="mb-20">
       <h2 class="text-4xl font-bold text-gray-900 mb-8">Life before Breezy</h2>
@@ -12,7 +12,7 @@
           </p>
         </div>
         <div class="lg:w-1/2">
-          <img src="" alt="Before Breezy" class="w-full max-w-md mx-auto" />
+          <img src="https://dummyimage.com/720x600" alt="Before Breezy" class="w-full max-w-md mx-auto" />
         </div>
       </div>
     </div>
@@ -29,7 +29,7 @@
           </p>
         </div>
         <div class="lg:w-1/2">
-          <img src="" alt="After Breezy" class="w-full max-w-md mx-auto" />
+          <img src="https://dummyimage.com/720x600" alt="After Breezy" class="w-full max-w-md mx-auto" />
         </div>
       </div>
     </div>

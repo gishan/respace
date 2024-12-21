@@ -7,13 +7,15 @@
         <div class="flex items-center justify-between">
           <div class="flex items-center">
             <NuxtLink to="/" class="text-2xl font-bold text-yellow-500">
-              Rescape
+              Respace
             </NuxtLink>
           </div>
           <div class="hidden md:flex items-center space-x-8">
             <NuxtLink to="/" class="text-white hover:text-yellow-500 transition-colors">Home</NuxtLink>
             <NuxtLink to="/about" class="text-white hover:text-yellow-500 transition-colors">About</NuxtLink>
             <NuxtLink to="/terms" class="text-white hover:text-yellow-500 transition-colors">Terms & Privacy</NuxtLink>
+            <NuxtLink to="/faq" class="text-white hover:text-yellow-500 transition-colors">FAQ</NuxtLink>
+            <NuxtLink to="/contact" class="text-white hover:text-yellow-500 transition-colors">Contact Us</NuxtLink>
           </div>
           <div class="md:hidden">
             <button class="text-white focus:outline-none" @click="mobileMenuOpen = !mobileMenuOpen">
@@ -29,6 +31,8 @@
             <NuxtLink to="/" class="block px-3 py-2 text-white hover:text-yellow-500 transition-colors">Home</NuxtLink>
             <NuxtLink to="/about" class="block px-3 py-2 text-white hover:text-yellow-500 transition-colors">About</NuxtLink>
             <NuxtLink to="/terms" class="block px-3 py-2 text-white hover:text-yellow-500 transition-colors">Terms & Privacy</NuxtLink>
+            <NuxtLink to="/faq" class="block px-3 py-2 text-white hover:text-yellow-500 transition-colors">FAQ</NuxtLink>
+            <NuxtLink to="/contact" class="block px-3 py-2 text-white hover:text-yellow-500 transition-colors">Contact Us</NuxtLink>
           </div>
         </div>
       </nav>

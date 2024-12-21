@@ -15,7 +15,7 @@
           <p class="text-lg text-gray-600">
             Connect with our team to find the ideal space for your brand.
           </p>
-          <button class="bg-brand-red text-surface-white px-8 py-3 rounded-lg hover:bg-opacity-90 transition-colors">
+          <button class="bg-brand-red text-surface-white px-8 py-3 hover:bg-opacity-90 transition-colors">
             Contact Us
           </button>
         </div>

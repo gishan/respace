@@ -1,47 +1,65 @@
 <!-- pages/index.vue -->
 <script setup>
-import StepForm from './components/QuestionForm/StepForm.vue'
+import Hero from "./components/home/Hero.vue";
+import Features from "./components/home/Features.vue";
+import Partnerships from "./components/home/Partnerships.vue";
+import Locations from "./components/home/Locations.vue";
+import StepForm from "./components/QuestionForm/StepForm.vue";
 
 definePageMeta({
-  ssr: true
-})
+  ssr: true,
+});
+
+// const config = useRuntimeConfig();
+// const { data: allPagesData } = await useFetch(`${config.public.apiBase}/pages`);
+
+// console.log(allPagesData.value);
+
+// const faqData = computed(
+//   () => allPagesData?.value.find((page) => page.slug === "/")?.data || {}
+// );
+
+// console.log(allPagesData.value);
 </script>
 
 <template>
   <div class="min-h-screen">
     <!-- Hero Section -->
-    <section class="bg-black text-white body-font">
-      <div class="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
-        <div
-          class="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
-          <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium">
-            <br class="hidden lg:inline-block">{{ $title }}
-          </h1>
-          <p class="mb-8 leading-relaxed">Copper mug try-hard pitchfork pour-over freegan heirloom neutra air plant
-            cold-pressed tacos poke beard tote bag. Heirloom echo park mlkshk tote bag selvage hot chicken authentic
-            tumeric truffaut hexagon try-hard chambray.</p>
-          <div class="flex justify-center">
-            <button
-              class="inline-flex text-black bg-yellow-500 border-0 focus:outline-none hover:text-white text-sm py-4 pr-16 pl-8 font-bold">Find
-              My Space</button>
-          </div>
-        </div>
-        <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
-          <img class="object-cover object-center rounded" alt="hero" src="https://dummyimage.com/720x600">
-        </div>
-      </div>
-    </section>
+    <Hero />
 
     <!-- Question Form Section -->
     <section class="py-20">
       <div class="container mx-auto px-6">
-        <h2 class="text-3xl font-bold text-center mb-12">Find Your Perfect Space</h2>
+        <h2 class="text-3xl font-bold text-center mb-12">
+          Find Your Perfect Space
+        </h2>
         <StepForm />
       </div>
     </section>
 
+    <!-- Features Section -->
+    <section class="py-5">
+      <Features />
+    </section>
+
+    <!-- Partnership Section -->
+    <section class="py-5">
+      <Partnerships />
+    </section>
+
+    <div
+      class="container mx-auto flex px-5 py-10 md:flex-row flex-col items-center gap-2"
+    >
+      <h1 class="text-3xl font-bold text-center mb-12">Where will you activate next?</h1>
+    </div>
+
+    <!-- Locations Section -->
+    <section class="py-5">
+      <Locations />
+    </section>
+
     <!-- Newsletter Section -->
-    <section class="bg-brand-red py-10">
+    <section class="bg-brand-red py-5">
       <div class="container mx-auto px-6">
         <NewsLetter />
       </div>
@@ -62,15 +80,21 @@ definePageMeta({
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div class="bg-white p-6 rounded-lg shadow-lg">
             <h3 class="text-xl font-semibold mb-4">Space Rental</h3>
-            <p class="text-gray-600">Find the perfect space for your next event or meeting.</p>
+            <p class="text-gray-600">
+              Find the perfect space for your next event or meeting.
+            </p>
           </div>
           <div class="bg-white p-6 rounded-lg shadow-lg">
             <h3 class="text-xl font-semibold mb-4">Event Venues</h3>
-            <p class="text-gray-600">Discover unique venues for your special occasions.</p>
+            <p class="text-gray-600">
+              Discover unique venues for your special occasions.
+            </p>
           </div>
           <div class="bg-white p-6 rounded-lg shadow-lg">
             <h3 class="text-xl font-semibold mb-4">Office Spaces</h3>
-            <p class="text-gray-600">Flexible workspaces for your business needs.</p>
+            <p class="text-gray-600">
+              Flexible workspaces for your business needs.
+            </p>
           </div>
         </div>
       </div>
