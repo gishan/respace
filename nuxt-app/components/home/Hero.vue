@@ -1,17 +1,26 @@
 <script setup>
+const config = useRuntimeConfig();
+
 defineProps({
-  block: {
-    type: Object,
-    required: true,
-    default: () => ({
-      data: {
-        title: "Activate Your\nExcess Space.",
-        description: "WeStock is the one-stop platform for connecting your brand directly with your audience, so your community online can translate to your success on store shelves and beyond.",
-        button_text: "Find My Space",
-        button_link: "/contact",
-        image: null
-      }
-    })
+  title: {
+    type: String,
+    default: "Activate Your\nExcess Space."
+  },
+  description: {
+    type: String,
+    default: "WeStock is the one-stop platform for connecting your brand directly with your audience, so your community online can translate to your success on store shelves and beyond."
+  },
+  buttonText: {
+    type: String,
+    default: "Find My Space"
+  },
+  buttonLink: {
+    type: String,
+    default: "/contact"
+  },
+  image: {
+    type: String,
+    default: null
   }
 });
 </script>
@@ -31,16 +40,16 @@ defineProps({
         <!-- Left content -->
         <div class="z-10">
           <h1 class="text-5xl font-serif font-medium tracking-tight text-gray-900 mb-6">
-            {{ block.data.title }}
+            {{ title }}
           </h1>
           <p class="text-lg text-gray-700 mb-8 max-w-xl">
-            {{ block.data.description }}
+            {{ description }}
           </p>
           <NuxtLink
-            :to="block.data.button_link"
+            :to="buttonLink"
             class="inline-flex text-black bg-yellow-500 border-0 focus:outline-none hover:text-white text-sm py-4 pr-16 pl-8 font-bold"
           >
-            {{ block.data.button_text }}
+            {{ buttonText }}
           </NuxtLink>
         </div>
 
@@ -48,7 +57,7 @@ defineProps({
         <div>
           <div class="relative overflow-hidden">
             <img
-              :src="block.data.image || 'https://dummyimage.com/720x600'"
+              :src="image ? `${config.public.contentBase}/${image}` : 'https://dummyimage.com/720x600'"
               alt="Retail Space"
               class="w-full h-[600px] object-cover"
             />
