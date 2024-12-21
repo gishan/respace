@@ -2,9 +2,7 @@
 export default defineNuxtConfig({
   ssr: true, 
   devtools: { enabled: true },
-  modules: [
-    '@nuxtjs/tailwindcss'
-  ],
+  modules: ['@nuxtjs/tailwindcss', 'nuxt-lucide-icons'],
   app: {
     head: {
       title: 'Rescape',
@@ -18,5 +16,8 @@ export default defineNuxtConfig({
     public: {
       apiBase: process.env.NUXT_PUBLIC_API_BASE || 'http://localhost:8000/api'
     }
+  },
+  lucide: {
+    namePrefix: 'Icon'
   }
 })
