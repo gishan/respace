@@ -1,5 +1,6 @@
 <!-- pages/about.vue -->
 <script setup>
+import BeforeAfter from "./components/about-us/BeforeAfter.vue";
 import Reviews from "./components/about-us/Reviews.vue";
 
 definePageMeta({
@@ -7,16 +8,10 @@ definePageMeta({
 });
 
 const config = useRuntimeConfig();
-const { data: allPagesData } = await useFetch(`${config.public.apiBase}/pages`);
 const { data } = await useFetch(`${config.public.apiBase}/pages/about`);
 
-const faqData = computed(
-  () => allPagesData?.value.find((page) => page.slug === "/")?.data || {}
-);
-
 const reviews = computed(() => data?.value.data.blocks.find(block => block.type === 'about_us_reviews')?.data?.reviews || []);
-
-// console.log(faqData.value);
+const afterBefore = computed(() => data?.value.data.blocks.find(block => block.type === 'about_us_before_after')?.data || []);
 </script>
 
 <template>
@@ -41,7 +36,7 @@ const reviews = computed(() => data?.value.data.blocks.find(block => block.type 
     <!-- Before-After Section -->
     <section class="py-20">
       <div class="container mx-auto px-6">
-        <BeforeAfter />
+        <BeforeAfter :before-title="afterBefore.before_title" :after-title="afterBefore.after_title" :before-content="afterBefore.before_content" :after-content="afterBefore.after_content" :before-image="afterBefore.before_image" :after-image="afterBefore.after_image" />
       </div>
     </section>
 

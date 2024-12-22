@@ -62,18 +62,18 @@ const locations = computed(() => data?.value.data.blocks.find(block => block.typ
       <Locations :block="{ data: locations }" />
     </section>
 
-    <!-- Newsletter Section -->
-    <section class="bg-brand-red py-5">
-      <div class="container mx-auto px-6">
-        <NewsLetter />
-      </div>
-    </section>
-
     <!-- Blog Posts Section -->
     <section class="py-10">
       <div class="container mx-auto px-6">
         <h2 class="text-3xl font-bold text-center mb-12">Our Blog</h2>
         <BlogPosts />
+      </div>
+    </section>
+
+     <!-- Newsletter Section -->
+     <section class="bg-black py-5">
+      <div class="container mx-auto px-6">
+        <NewsLetter />
       </div>
     </section>
   </div>
