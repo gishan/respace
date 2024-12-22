@@ -48,7 +48,45 @@ resource "google_compute_instance" "frontend_spot_vm" {
   }
 }
 
+# Create a backend spot VM instance
+resource "google_compute_instance" "backend_spot_vm" {
+  name         = "backend-spot-vm"
+  machine_type = var.machine_type
+  
+  # Spot VM configuration
+  scheduling {
+    preemptible       = true
+    automatic_restart = false
+    provisioning_model = "SPOT"
+  }
+
+  boot_disk {
+    initialize_params {
+      image = "debian-cloud/debian-11"
+    }
+  }
+
+  network_interface {
+    network = "default"
+    access_config {
+      # Include this empty block to give the VM an external IP address
+    }
+  }
+
+  # Add any additional tags if needed
+  tags = ["backend-spot-instance"]
+
+  metadata = {
+    shutdown-script = "echo 'Shutting down'"
+  }
+}
+
 # Output the frontend instance IP
 output "frontend_instance_ip" {
   value = google_compute_instance.frontend_spot_vm.network_interface[0].access_config[0].nat_ip
+}
+
+# Output the backend instance IP
+output "backend_instance_ip" {
+  value = google_compute_instance.backend_spot_vm.network_interface[0].access_config[0].nat_ip
 }
