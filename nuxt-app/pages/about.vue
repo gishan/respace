@@ -8,10 +8,13 @@ definePageMeta({
 
 const config = useRuntimeConfig();
 const { data: allPagesData } = await useFetch(`${config.public.apiBase}/pages`);
+const { data } = await useFetch(`${config.public.apiBase}/pages/about`);
 
 const faqData = computed(
   () => allPagesData?.value.find((page) => page.slug === "/")?.data || {}
 );
+
+const reviews = computed(() => data?.value.data.blocks.find(block => block.type === 'about_us_reviews')?.data?.reviews || []);
 
 // console.log(faqData.value);
 </script>
@@ -45,7 +48,7 @@ const faqData = computed(
     <!-- Reviews Section -->
     <section class="py-20">
       <div class="container mx-auto px-6">
-        <Reviews />
+        <Reviews :reviews="reviews" />
       </div>
     </section>
   </div>
