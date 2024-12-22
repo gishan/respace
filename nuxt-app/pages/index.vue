@@ -14,9 +14,8 @@ definePageMeta({
 const config = useRuntimeConfig();
 const { data } = await useFetch(`${config.public.apiBase}/pages/home`);
 
-
-const hero = computed(() => data.value.data.blocks.find(block => block.type === 'home_hero').data || {})
-const locations = computed(() => data.value.data.blocks.find(block => block.type === 'home_locations').data || {})
+const hero = computed(() => data?.value.data.blocks.find(block => block.type === 'home_hero').data || {})
+const locations = computed(() => data?.value.data.blocks.find(block => block.type === 'home_locations').data || {})
 
 // const spaceFaqs = computed(() => data?.value.data.blocks.find(block => block.data.type === 'space').data.faqs || [])
 

@@ -9,8 +9,6 @@ definePageMeta({
 const config = useRuntimeConfig();
 const { data: allPagesData } = await useFetch(`${config.public.apiBase}/pages`);
 
-console.log(allPagesData.value);
-
 const faqData = computed(
   () => allPagesData?.value.find((page) => page.slug === "/")?.data || {}
 );
