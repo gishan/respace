@@ -35,7 +35,7 @@
         <h2 class="text-3xl font-bold mb-6">Terms of Service</h2>
         <div v-for="(section, index) in terms" :key="index">
           <h3 class="text-2xl font-bold mt-8 mb-4">{{ section.title }}</h3>
-          <p>{{ section.content }}</p>
+          <div v-html="section.content" class="pl-5 space-y-3 text-gray-600 list-disc marker:text-blue-600" style="list-style: unset;"></div>
         </div>
       </div>
 
@@ -44,7 +44,7 @@
         <h2 class="text-3xl font-bold mb-6">Privacy Policy</h2>
         <div v-for="(section, index) in privacy" :key="index">
           <h3 class="text-2xl font-bold mt-8 mb-4">{{ section.title }}</h3>
-          <p>{{ section.content }}</p>
+          <div v-html="section.content" class="pl-5 space-y-3 text-gray-600 list-disc marker:text-blue-600"></div>
         </div>
       </div>
     </div>
