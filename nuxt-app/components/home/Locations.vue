@@ -12,7 +12,7 @@
           }"
         >
           <img
-            :src="location.image || 'https://dummyimage.com/720x600'"
+            :src="location.image ? `${config.public.contentBase}/${location.image}` : 'https://dummyimage.com/720x600'"
             class="object-cover h-full w-full relative object-center"
             :alt="location.title1"
           />
@@ -33,6 +33,8 @@
 </template>
 
 <script setup>
+const config = useRuntimeConfig();
+
 defineProps({
   block: {
     type: Object,

@@ -2,6 +2,37 @@
 <script setup>
 import { ref } from 'vue'
 
+const props = defineProps({
+  title: {
+    type: String,
+    default: 'Subscribe to Our Newsletter'
+  },
+  description: {
+    type: String,
+    default: 'Stay updated with our latest spaces and exclusive offers. Join our community today!'
+  },
+  buttonText: {
+    type: String,
+    default: 'Subscribe'
+  },
+  inputPlaceholder: {
+    type: String,
+    default: 'Enter your email'
+  },
+  successMessage: {
+    type: String,
+    default: 'Thank you for subscribing! 🎉'
+  },
+  errorMessage: {
+    type: String,
+    default: 'Oops! Something went wrong. Please try again.'
+  },
+  loadingText: {
+    type: String,
+    default: 'Subscribing...'
+  }
+});
+
 const email = ref('')
 const isSubmitting = ref(false)
 const showSuccess = ref(false)
@@ -40,10 +71,10 @@ const handleSubmit = async () => {
     <div class="container mx-auto px-6">
       <div class="max-w-3xl mx-auto text-center">
         <h2 class="text-3xl font-bold text-white mb-4">
-          Subscribe to Our Newsletter
+          {{ title }}
         </h2>
         <p class="text-gray-400 mb-8">
-          Stay updated with our latest spaces and exclusive offers. Join our community today!
+          {{ description }}
         </p>
         
         <form @submit.prevent="handleSubmit" class="max-w-md mx-auto">
@@ -52,7 +83,7 @@ const handleSubmit = async () => {
               <input
                 v-model="email"
                 type="email"
-                placeholder="Enter your email"
+                :placeholder="inputPlaceholder"
                 class="w-full px-4 py-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 transition-colors"
                 required
               />
@@ -63,10 +94,10 @@ const handleSubmit = async () => {
               class="px-6 py-3 bg-yellow-500 text-black font-semibold rounded-lg hover:bg-yellow-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <span v-if="isSubmitting">
-                Subscribing...
+                {{ loadingText }}
               </span>
               <span v-else>
-                Subscribe
+                {{ buttonText }}
               </span>
             </button>
           </div>
@@ -76,7 +107,7 @@ const handleSubmit = async () => {
             v-if="showSuccess"
             class="mt-4 p-3 bg-green-500 text-white rounded-lg"
           >
-            Thank you for subscribing! 🎉
+            {{ successMessage }}
           </div>
           
           <!-- Error Message -->
@@ -84,7 +115,7 @@ const handleSubmit = async () => {
             v-if="showError"
             class="mt-4 p-3 bg-red-500 text-white rounded-lg"
           >
-            Oops! Something went wrong. Please try again.
+            {{ errorMessage }}
           </div>
         </form>
       </div>

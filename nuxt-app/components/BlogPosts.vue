@@ -138,7 +138,7 @@ const formatDate = (dateString) => {
       <div class="text-center mt-12">
         <a 
           href="#" 
-          class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-yellow-500 hover:bg-yellow-600 transition-colors"
+          class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium text-white bg-yellow-500 hover:bg-yellow-600 transition-colors"
         >
           View All Posts
           <svg 

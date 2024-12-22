@@ -10,7 +10,7 @@
         class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0 relative"
       >
         <img
-          :src="partnership.image || 'https://dummyimage.com/720x600'"
+          :src="partnership.image ? `${config.public.contentBase}/${partnership.image}` : 'https://dummyimage.com/720x600'"
           class="object-cover object-center rounded-3xl"
           :alt="partnership.title"
         />
@@ -25,6 +25,7 @@
 </template>
 
 <script setup>
+const config = useRuntimeConfig();
 defineProps({
   block: {
     type: Object,

@@ -4,6 +4,7 @@ import Hero from "./components/home/Hero.vue";
 import Features from "./components/home/Features.vue";
 import Partnerships from "./components/home/Partnerships.vue";
 import Locations from "./components/home/Locations.vue";
+import NewsLetter from "./components/home/NewsLetter.vue";
 import StepForm from "./components/QuestionForm/StepForm.vue";
 
 definePageMeta({
@@ -74,33 +75,6 @@ const locations = computed(() => data.value.data.blocks.find(block => block.type
       <div class="container mx-auto px-6">
         <h2 class="text-3xl font-bold text-center mb-12">Our Blog</h2>
         <BlogPosts />
-      </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="py-10">
-      <div class="container mx-auto px-6">
-        <h2 class="text-3xl font-bold text-center mb-12">Our Services</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div class="bg-white p-6 rounded-lg shadow-lg">
-            <h3 class="text-xl font-semibold mb-4">Space Rental</h3>
-            <p class="text-gray-600">
-              Find the perfect space for your next event or meeting.
-            </p>
-          </div>
-          <div class="bg-white p-6 rounded-lg shadow-lg">
-            <h3 class="text-xl font-semibold mb-4">Event Venues</h3>
-            <p class="text-gray-600">
-              Discover unique venues for your special occasions.
-            </p>
-          </div>
-          <div class="bg-white p-6 rounded-lg shadow-lg">
-            <h3 class="text-xl font-semibold mb-4">Office Spaces</h3>
-            <p class="text-gray-600">
-              Flexible workspaces for your business needs.
-            </p>
-          </div>
-        </div>
       </div>
     </section>
   </div>
