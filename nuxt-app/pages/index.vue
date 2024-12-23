@@ -16,6 +16,21 @@ const { data } = await useFetch(`${config.public.apiBase}/pages/home`);
 
 const hero = computed(() => data?.value.data.blocks.find(block => block.type === 'home_hero').data || {})
 const locations = computed(() => data?.value.data.blocks.find(block => block.type === 'home_locations').data || {})
+const features = computed(() => data?.value.data.blocks.find(block => block.type === 'home_features')?.data || {
+  features: []
+})
+const partnerships = computed(() => data?.value.data.blocks.find(block => block.type === 'home_partnerships')?.data || {
+  partnerships: []
+})
+const newsletter = computed(() => data?.value.data.blocks.find(block => block.type === 'home_newsletter')?.data || {
+  title: 'Subscribe to Our Newsletter',
+  description: 'Stay updated with our latest spaces and exclusive offers. Join our community today!',
+  buttonText: 'Subscribe',
+  inputPlaceholder: 'Enter your email',
+  successMessage: 'Thank you for subscribing! 🎉',
+  errorMessage: 'Oops! Something went wrong. Please try again.',
+  loadingText: 'Subscribing...'
+})
 
 // const spaceFaqs = computed(() => data?.value.data.blocks.find(block => block.data.type === 'space').data.faqs || [])
 
@@ -43,12 +58,12 @@ const locations = computed(() => data?.value.data.blocks.find(block => block.typ
 
     <!-- Features Section -->
     <section class="py-5">
-      <Features />
+      <Features :block="{ data: features }" />
     </section>
 
     <!-- Partnership Section -->
     <section class="py-5">
-      <Partnerships />
+      <Partnerships :block="{ data: partnerships }" />
     </section>
 
     <div
@@ -73,7 +88,15 @@ const locations = computed(() => data?.value.data.blocks.find(block => block.typ
      <!-- Newsletter Section -->
      <section class="bg-black py-5">
       <div class="container mx-auto px-6">
-        <NewsLetter />
+        <NewsLetter 
+          :title="newsletter.title"
+          :description="newsletter.description"
+          :button-text="newsletter.buttonText"
+          :input-placeholder="newsletter.inputPlaceholder"
+          :success-message="newsletter.successMessage"
+          :error-message="newsletter.errorMessage"
+          :loading-text="newsletter.loadingText"
+        />
       </div>
     </section>
   </div>
