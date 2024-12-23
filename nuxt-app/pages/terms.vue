@@ -16,9 +16,21 @@ definePageMeta({
 });
 
 const config = useRuntimeConfig();
-const { data } = await useFetch(`${config.public.apiBase}/pages/terms`);
+const { data } = await useFetch(`${config.public.apiBase}/pages/terms`, {
+  server: true,
+  onError(error) {
+    console.error("Fetch error:", error);
+  },
+});
 
-const terms = computed(() => data.value.data.blocks.find(block => block.type === 'terms_tabs').data.terms || {})
-const privacy = computed(() => data.value.data.blocks.find(block => block.type === 'terms_tabs').data.privacy || {})
-
+const terms = computed(
+  () =>
+    data.value.data.blocks.find((block) => block.type === "terms_tabs").data
+      .terms || {}
+);
+const privacy = computed(
+  () =>
+    data.value.data.blocks.find((block) => block.type === "terms_tabs").data
+      .privacy || {}
+);
 </script>

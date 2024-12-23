@@ -1,8 +1,23 @@
 <template>
   <div>
-    <MainHero :title="mainHero.title" :description="mainHero.description" :icons="mainHero.icons" :background-image="mainHero.background_image" />
-    <FirstHero :title="firstHero.title" :description="firstHero.description" :icons="firstHero.icons" :background-image="firstHero.background_image" />
-    <Hero :title="hero.title" :description="hero.description" :icons="hero.icons" :background-image="hero.background_image" />
+    <MainHero
+      :title="mainHero.title"
+      :description="mainHero.description"
+      :icons="mainHero.icons"
+      :background-image="mainHero.background_image"
+    />
+    <FirstHero
+      :title="firstHero.title"
+      :description="firstHero.description"
+      :icons="firstHero.icons"
+      :background-image="firstHero.background_image"
+    />
+    <Hero
+      :title="hero.title"
+      :description="hero.description"
+      :icons="hero.icons"
+      :background-image="hero.background_image"
+    />
     <PopupBenefits
       v-if="popupBenefits?.benefits?.length"
       :benefits="popupBenefits.benefits"
@@ -20,7 +35,12 @@ import Hero from "~/components/for-brands/Hero.vue";
 import PopupBenefits from "~/components/for-brands/PopupBenefits.vue";
 
 const config = useRuntimeConfig();
-const { data } = await useFetch(`${config.public.apiBase}/pages/for-brands`);
+const { data } = await useFetch(`${config.public.apiBase}/pages/for-brands`, {
+  server: true,
+  onError(error) {
+    console.error("Fetch error:", error);
+  },
+});
 
 const popupBenefits = computed(() => {
   const blocks = data.value?.data?.blocks || [];
@@ -45,5 +65,4 @@ const mainHero = computed(() => {
   const block = blocks.find((block) => block.type === "for_brands_main_hero");
   return block?.data || null;
 });
-
 </script>

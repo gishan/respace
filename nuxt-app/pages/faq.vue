@@ -45,16 +45,29 @@
 </template>
 
 <script setup>
-import BrandFaqs from '~/components/FAQ/BrandFaqs.vue'
-import SpaceFaqs from '~/components/FAQ/SpaceFaqs.vue'
+import BrandFaqs from "~/components/FAQ/BrandFaqs.vue";
+import SpaceFaqs from "~/components/FAQ/SpaceFaqs.vue";
 
 definePageMeta({
-  ssr: true
-})
+  ssr: true,
+});
 
 const config = useRuntimeConfig();
-const { data: faqData } = await useFetch(`${config.public.apiBase}/pages/faq`)
+const { data: faqData } = await useFetch(`${config.public.apiBase}/pages/faq`, {
+  server: true,
+  onError(error) {
+    console.error("Fetch error:", error);
+  },
+});
 
-const brandFaqs = computed(() => faqData?.value.data.blocks.find(block => block.data.type === 'brand').data.faqs || [])
-const spaceFaqs = computed(() => faqData?.value.data.blocks.find(block => block.data.type === 'space').data.faqs || [])
+const brandFaqs = computed(
+  () =>
+    faqData?.value.data.blocks.find((block) => block.data.type === "brand").data
+      .faqs || []
+);
+const spaceFaqs = computed(
+  () =>
+    faqData?.value.data.blocks.find((block) => block.data.type === "space").data
+      .faqs || []
+);
 </script>
