@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\PageController;
 use App\Http\Controllers\Api\BlogController;
 use App\Http\Controllers\BrandInquiryController;
+use App\Http\Controllers\SpaceSubmissionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,4 +41,6 @@ Route::group(['middleware' => ['api']], function () {
         Route::get('/parent/{parentId?}', [PageController::class, 'getByParent']);
         Route::get('/{page:slug}', [PageController::class, 'show']);
     });
+
+    Route::post('/space-submissions', [SpaceSubmissionController::class, 'store']);
 });

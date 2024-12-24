@@ -10,217 +10,107 @@ const showSuccess = ref(false)
 
 const questions = [
   {
-    id: 'brand-name',
-    title: 'Brand Name',
+    id: 'space-name',
+    title: 'Space Name',
     type: 'text',
-    subtitle: null
+    required: true
   },
   {
-    id: 'product-category',
-    title: 'Primary Product Category',
+    id: 'location',
+    title: 'Location',
+    type: 'text',
+    required: true,
+    placeholder: 'Enter address'
+  },
+  {
+    id: 'space-type',
+    title: 'Space Type',
     type: 'single-select',
-    subtitle: null,
-    options: [
-      { id: 'fashion', label: 'Fashion & Apparel', icon: '/icons/fashion.svg' },
-      { id: 'beauty', label: 'Beauty & Cosmetics', icon: '/icons/beauty.svg' },
-      { id: 'food', label: 'Food & Beverage', icon: '/icons/food.svg' },
-      { id: 'home', label: 'Home & Lifestyle', icon: '/icons/home.svg' },
-      { id: 'tech', label: 'Tech & Electronics', icon: '/icons/tech.svg' },
-      { id: 'art', label: 'Art & Design', icon: '/icons/art.svg' },
-      { id: 'other', label: 'Other (please specify)', icon: '/icons/other.svg', hasInput: true }
-    ]
-  },
-  {
-    id: 'brand-stage',
-    title: 'Brand Stage',
-    type: 'single-select',
-    subtitle: null,
-    options: [
-      { id: 'startup', label: 'Startup (0-2 years)', icon: '/icons/startup.svg' },
-      { id: 'growing', label: 'Growing (3-5 years)', icon: '/icons/growth.svg' },
-      { id: 'established', label: 'Established (5+ years)', icon: '/icons/established.svg' },
-      { id: 'emerging', label: 'Emerging/Indie Brand', icon: '/icons/emerging.svg' },
-      { id: 'corporate', label: 'Corporate/Enterprise', icon: '/icons/corporate.svg' }
-    ]
-  },
-  {
-    id: 'activation-purpose',
-    title: 'Primary Activation Purpose',
-    type: 'single-select',
-    subtitle: 'Space Activation Goals',
-    options: [
-      { id: 'launch', label: 'Product Launch' },
-      { id: 'popup', label: 'Pop-Up Retail' },
-      { id: 'awareness', label: 'Brand Awareness' },
-      { id: 'sales', label: 'Direct Sales' },
-      { id: 'testing', label: 'Market Testing' },
-      { id: 'engagement', label: 'Customer Engagement' },
-      { id: 'feedback', label: 'Customer Feedback' },
-      { id: 'seasonal', label: 'Seasonal Campaign' },
-      { id: 'demo', label: 'Product Demo' },
-      { id: 'sampling', label: 'Product Sampling' }
-    ]
-  },
-  {
-    id: 'experience-type',
-    title: 'Desired Experience Type',
-    type: 'single-select',
-    subtitle: 'Space Activation Goals',
-    options: [
-      { id: 'boutique', label: 'Intimate Boutique Space' },
-      { id: 'retail', label: 'High-Traffic Retail Location' },
-      { id: 'workshop', label: 'Creative Workshop Area' },
-      { id: 'hospitality', label: 'Hospitality Venue' },
-      { id: 'community', label: 'Community Event Space' },
-      { id: 'gallery', label: 'Art Gallery/Exhibition Space' },
-      { id: 'mixed', label: 'Mixed-Use Environment' }
-    ]
-  },
-  {
-    id: 'showcase-preference',
-    title: 'Your Brand Is Best Showcased On',
-    type: 'single-select',
-    subtitle: 'Space Activation Goals',
-    options: [
-      { id: 'floor', label: 'Floorspace' },
-      { id: 'table', label: 'Tablespace' },
-      { id: 'shelf', label: 'Shelfspace' },
-      { id: 'wall', label: 'Wallspace' }
-    ]
-  },
-  {
-    id: 'target-demographic',
-    title: 'Target Customer Demographic',
-    type: 'multi-select',
-    subtitle: 'Space Activation Goals',
-    options: [
-      { id: 'genz', label: 'Gen Z (13-25)' },
-      { id: 'millennials', label: 'Millennials (26-41)' },
-      { id: 'genx', label: 'Gen X (42-57)' },
-      { id: 'boomers', label: 'Baby Boomers (58-76)' },
-      { id: 'highend', label: 'High-End Consumers' },
-      { id: 'budget', label: 'Budget-Conscious Consumers' },
-      { id: 'specific', label: 'Specific Lifestyle Group', hasInput: true }
-    ]
-  },
-  {
-    id: 'location-type',
-    title: 'Preferred Location Type',
-    type: 'single-select',
-    subtitle: 'Space Requirements',
+    required: true,
     options: [
       { id: 'retail', label: 'Retail Space' },
-      { id: 'hotels', label: 'Hotels' },
-      { id: 'fnb', label: 'F&B Spaces' },
-      { id: 'coworking', label: 'Coworking Spaces' },
-      { id: 'wellness', label: 'Wellness (Spa/Gym/Pilates)' },
-      { id: 'college', label: 'College/University Area' },
-      { id: 'resort', label: 'Resort/Tourist Location' },
-      { id: 'none', label: 'No Preference' }
+      { id: 'hospitality', label: 'Hospitality Venue' },
+      { id: 'event', label: 'Event Space' },
+      { id: 'mixed-use', label: 'Mixed-Use Location' },
+      { id: 'specific', label: 'Other (specify)' }
     ]
   },
   {
-    id: 'space-size',
-    title: 'Space Size Requirement',
+    id: 'primary-motivation',
+    title: 'Primary Motivation for Renting',
     type: 'single-select',
-    subtitle: 'Space Requirements',
+    required: true,
     options: [
-      { id: 'micro', label: 'Micro Space (under 200 sq ft)' },
-      { id: 'small', label: 'Small Space (200-500 sq ft)' },
-      { id: 'medium', label: 'Medium Space (500-1000 sq ft)' },
-      { id: 'large', label: 'Large Space (1000-2000 sq ft)' },
-      { id: 'flexible', label: 'Flexible/Variable Needs' }
+      { id: 'revenue', label: 'Generate Additional Revenue' },
+      { id: 'traffic', label: 'Increase Foot Traffic' },
+      { id: 'community', label: 'Create Community Engagement' },
+      { id: 'activate', label: 'Activate Underutilized Space' },
+      { id: 'partnerships', label: 'Build Brand Partnerships' },
+      { id: 'showcase', label: 'Showcase Space Potential' },
+      { id: 'networking', label: 'Networking Opportunities' }
     ]
   },
   {
-    id: 'amenities',
-    title: 'Desired Amenities',
+    id: 'target-demographics',
+    title: 'Target Brand Demographics',
+    type: 'checkboxes',
+    required: true,
+    options: [
+      { id: 'emerging', label: 'Emerging Brands' },
+      { id: 'luxury', label: 'Luxury Brands' },
+      { id: 'local', label: 'Local Entrepreneurs' },
+      { id: 'tech', label: 'Tech Startups' },
+      { id: 'fashion', label: 'Fashion Labels' },
+      { id: 'food', label: 'Food & Beverage' },
+      { id: 'art', label: 'Art & Design Brands' }
+    ]
+  },
+  {
+    id: 'collaboration-style',
+    title: 'Preferred Brand Collaboration Style',
     type: 'single-select',
-    subtitle: 'Space Requirements',
+    required: true,
     options: [
-      { id: 'kitchen', label: 'Kitchen/Food Prep Area' },
-      { id: 'shelving', label: 'Display Shelving' },
-      { id: 'changing', label: 'Changing Rooms' },
-      { id: 'storage', label: 'Storage Space' },
-      { id: 'tech', label: 'Tech/WiFi Capabilities' },
-      { id: 'av', label: 'Audio/Visual Equipment' },
-      { id: 'lighting', label: 'Natural Lighting' },
-      { id: 'visibility', label: 'Street Visibility' },
-      { id: 'parking', label: 'Parking Access' }
+      { id: 'short-term', label: 'Short-Term Rentals' },
+      { id: 'rotating', label: 'Rotating Brand Experiences' },
+      { id: 'long-term', label: 'Exclusive Long-Term Partnerships' },
+      { id: 'flexible', label: 'Flexible/Open to Negotiation' }
     ]
   },
   {
-    id: 'budget',
-    title: 'Budget Range for Space Rental',
-    type: 'single-select',
-    subtitle: 'Financial & Timing Details',
+    id: 'supported-events',
+    title: 'Supported Retail Events',
+    type: 'checkboxes',
+    required: true,
     options: [
-      { id: 'budget1', label: '$500-$1,000/month' },
-      { id: 'budget2', label: '$1,000-$2,500/month' },
-      { id: 'budget3', label: '$2,500-$5,000/month' },
-      { id: 'budget4', label: '$5,000-$10,000/month' },
-      { id: 'budget5', label: '$10,000+/month' },
-      { id: 'flexible', label: 'Flexible/Negotiable' }
+      { id: 'launch', label: 'Product Launch' },
+      { id: 'placement', label: 'Product Placement' },
+      { id: 'popup', label: 'Pop-Up Store' },
+      { id: 'activation', label: 'Brand Activation' },
+      { id: 'workshop', label: 'Workshop/Demonstration' },
+      { id: 'photoshoot', label: 'Photo Shoot' },
+      { id: 'sampling', label: 'Sampling Event' }
     ]
-  },
-  {
-    id: 'timeline',
-    title: 'Desired Launch/Activation Timeline',
-    type: 'single-select',
-    subtitle: 'Financial & Timing Details',
-    options: [
-      { id: 'immediate', label: 'Immediate (0-30 days)' },
-      { id: 'short', label: '1-3 Months' },
-      { id: 'medium', label: '3-6 Months' },
-      { id: 'long', label: '6-12 Months' },
-      { id: 'flexible', label: 'Flexible Timing' }
-    ]
-  },
-  {
-    id: 'duration',
-    title: 'Activation Duration',
-    type: 'single-select',
-    subtitle: 'Financial & Timing Details',
-    options: [
-      { id: 'oneday', label: 'One-Day Event' },
-      { id: 'weekend', label: 'Weekend Pop-Up' },
-      { id: 'month1', label: '1 Month' },
-      { id: 'month3', label: '3 Months' },
-      { id: 'month6', label: '6 Months' },
-      { id: 'year1', label: '1 Year' },
-      { id: 'flexible', label: 'Flexible Duration' }
-    ]
-  },
-  {
-    id: 'special-requirements',
-    title: 'Special Requirements/Notes',
-    type: 'textarea',
-    subtitle: 'Additional Considerations',
-    placeholder: 'Enter any unique needs, accessibility requirements, or specific preferences'
   },
   {
     id: 'contact',
-    title: 'Brand Contact Information',
-    type: 'contact-form',
-    subtitle: 'Additional Considerations',
-  },
-  {
-    id: 'consent',
-    title: 'Consent & Next Steps',
-    type: 'checkboxes',
-    subtitle: null,
-    options: [
-      { id: 'contact-consent', label: 'I agree to be contacted by space matching representatives' },
-      { id: 'understand', label: 'I understand that submission does not guarantee space placement' }
+    title: 'Contact Information',
+    type: 'contact',
+    required: true,
+    fields: [
+      { id: 'full-name', label: 'Full Name', type: 'text' },
+      { id: 'email', label: 'Email Address', type: 'email' },
+      { id: 'phone', label: 'Phone Number', type: 'tel' }
     ]
   }
 ]
 
-const selectOption = (questionId, optionId, isMulti = false) => {
+function selectOption(questionId, optionId, isMulti = false) {
+  if (!answers.value[questionId]) {
+    answers.value[questionId] = isMulti ? [] : null
+  }
+
   if (isMulti) {
-    if (!answers.value[questionId]) {
-      answers.value[questionId] = []
-    }
     const index = answers.value[questionId].indexOf(optionId)
     if (index === -1) {
       answers.value[questionId].push(optionId)
@@ -228,44 +118,42 @@ const selectOption = (questionId, optionId, isMulti = false) => {
       answers.value[questionId].splice(index, 1)
     }
   } else {
-    answers.value[questionId] = optionId
+    answers.value[questionId] = answers.value[questionId] === optionId ? null : optionId
   }
 }
 
-const updateTextInput = (questionId, value) => {
+function updateTextInput(questionId, value) {
   answers.value[questionId] = value
 }
 
-const updateContactField = (questionId, fieldId, value) => {
+function updateContactField(questionId, fieldId, value) {
   if (!answers.value[questionId]) {
     answers.value[questionId] = {}
   }
   answers.value[questionId][fieldId] = value
 }
 
-const nextStep = () => {
-  if (canProceed(questions[currentStep.value].id)) {
-    if (currentStep.value < questions.length - 1) {
-      currentStep.value++
-    }
+function nextStep() {
+  if (questions[currentStep.value].type === 'supported-events' || canProceed(questions[currentStep.value].id)) {
+    currentStep.value++
   }
 }
 
-const prevStep = () => {
+function prevStep() {
   if (currentStep.value > 0) {
     currentStep.value--
   }
 }
 
-const isOptionSelected = (questionId, optionId) => {
+function isOptionSelected(questionId, optionId) {
   return answers.value[questionId] === optionId
 }
 
-const isMultiSelected = (questionId, optionId) => {
-  return answers.value[questionId] && answers.value[questionId].includes(optionId)
+function isMultiSelected(questionId, optionId) {
+  return answers.value[questionId]?.includes(optionId)
 }
 
-const canProceed = (questionId) => {
+function canProceed(questionId) {
   const currentQuestion = questions[currentStep.value]
   const answer = answers.value[questionId]
 
@@ -291,43 +179,32 @@ const canProceed = (questionId) => {
 }
 
 async function handleSubmit() {
-  if (!isLastStep()) return nextStep()
-  
-  try {
-    isSubmitting.value = true
-    submitError.value = null
+  if (!canProceed(questions[currentStep.value].id)) return
 
-    console.log('Form submitted:', answers.value);
+  isSubmitting.value = true
+  submitError.value = null
+
+  try {
+    // Here you would typically make an API call to submit the form data
+    console.log('Form submitted:', answers.value)
     
-    // Format the data according to the API requirements
     const formData = {
-      brand_name: answers.value['brand-name'] ?? "",
-      product_category: answers.value['product-category'] ?? "",
-      product_category_other: answers.value['product-category'] ?? "",
-      brand_stage: answers.value['brand-stage'] ?? "",
-      activation_purpose: answers.value['activation-purpose'] ?? "",
-      experience_type: answers.value['experience-type'] ?? "",
-      showcase_preference: answers.value['showcase-preference'] ?? "",
-      target_demographic: answers.value['target-demographic']?.map(item => item.id) || [],
-      target_demographic_specific: answers.value['target-demographic']?.find(item => item.id === 'specific')?.other ?? "",
-      location_type: answers.value['location-type'] ?? "",
-      space_size: answers.value['space-size'] ?? "",
-      // amenities: answers.value['amenities']?.map(item => item.id) || [],
-      budget: answers.value['budget'] ?? "",
-      timeline: answers.value['timeline'] ?? "",
-      duration: answers.value['duration'] ?? "",
-      special_requirements: answers.value['special-requirements'] ?? "",
-      contact_name: answers.value['name'] ?? "",
-      contact_email: answers.value['email'] ?? "",
-      contact_phone: answers.value['phone'] ?? "",
-      contact_company: answers.value['company'] ?? "any",
-      contact_role: answers.value['role'] ?? "any",
-      amenities: ["kitchen", "shelving", "changing", "storage", "tech", "av", "lighting", "visibility", "parking"],
+      space_name: answers.value['space-name']?.trim(),
+      contact_name: answers.value['full-name']?.trim(),
+      contact_email: answers.value['email']?.trim(),
+      contact_phone: answers.value['phone']?.trim(),
+      location: answers.value['location']?.trim(),
+      space_type: answers.value['space-type']?.trim(),
+      primary_motivation: answers.value['primary-motivation']?.trim(),
+      supported_events: answers.value['supported-events']?.filter(Boolean),
+      collaboration_style: answers.value['collaboration-style']?.trim(),
+      industries: answers.value['industries']?.filter(Boolean),
+      target_demographics: answers.value['target-demographics'],
     }
 
     console.log('Formatted data:', formData);
     const config = useRuntimeConfig();
-    const response = await fetch(`${config.public.apiBase}/brand-inquiries`, {
+    const response = await fetch(`${config.public.apiBase}/space-submissions`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -357,7 +234,9 @@ async function handleSubmit() {
   }
 }
 
-const isLastStep = () => currentStep.value === questions.length - 1
+function isLastStep() {
+  return currentStep.value === questions.length - 1
+}
 </script>
 
 <template>
@@ -365,6 +244,8 @@ const isLastStep = () => currentStep.value === questions.length - 1
     <div v-if="showSuccess" class="mb-8 p-4 bg-green-100 text-green-700 rounded-lg text-center">
       Thank you for your submission! We'll get back to you soon.
     </div>
+    
+    
     <div v-else class="mb-12 min-w-[400px]">
       <!-- Subtitle if exists -->
       <div v-if="questions[currentStep].subtitle" class="text-sm uppercase tracking-wider text-gray-600 mb-4 text-center">
@@ -412,16 +293,16 @@ const isLastStep = () => currentStep.value === questions.length - 1
       <div v-else-if="questions[currentStep].type === 'contact-form'" class="max-w-xl mx-auto space-y-4">
         <!-- Name -->
         <div class="space-y-2">
-          <label class="block text-sm font-medium text-gray-700">Name</label>
+          <label class="block text-sm font-medium text-gray-700">Full Name</label>
           <input
             type="text"
-            v-model="answers['name']"
+            v-model="answers['full-name']"
             class="w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-brand-red transition-colors"
             :class="{
-              'border-gray-200': !answers['name'],
-              'border-brand-red': answers['name']
+              'border-gray-200': !answers['full-name'],
+              'border-brand-red': answers['full-name']
             }"
-            placeholder="Enter your name"
+            placeholder="Enter your full name"
           >
         </div>
 
@@ -452,21 +333,6 @@ const isLastStep = () => currentStep.value === questions.length - 1
               'border-brand-red': answers['phone']
             }"
             placeholder="Enter your phone number"
-          >
-        </div>
-
-        <!-- Website -->
-        <div class="space-y-2">
-          <label class="block text-sm font-medium text-gray-700">Company Website</label>
-          <input
-            type="url"
-            v-model="answers['website']"
-            class="w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-brand-red transition-colors"
-            :class="{
-              'border-gray-200': !answers['website'],
-              'border-brand-red': answers['website']
-            }"
-            placeholder="Enter your company website"
           >
         </div>
       </div>
@@ -576,6 +442,19 @@ const isLastStep = () => currentStep.value === questions.length - 1
             v-model="answers[`${questions[currentStep].id}_other`]"
             class="w-full px-4 py-2 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-red"
             placeholder="Please specify"
+          >
+        </div>
+      </div>
+
+      <!-- Contact form -->
+      <div v-else-if="questions[currentStep].type === 'contact'" class="max-w-xl mx-auto space-y-4">
+        <div v-for="field in questions[currentStep].fields" :key="field.id" class="space-y-2">
+          <label :for="field.id" class="block text-sm font-medium text-gray-700">{{ field.label }}</label>
+          <input
+            :type="field.type"
+            :id="field.id"
+            v-model="answers[questions[currentStep].id][field.id]"
+            class="w-full px-4 py-2 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-red"
           >
         </div>
       </div>
