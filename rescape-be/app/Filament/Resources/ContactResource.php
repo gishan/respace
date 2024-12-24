@@ -13,7 +13,7 @@ use Filament\Tables\Table;
 class ContactResource extends Resource
 {
     protected static ?string $model = Contact::class;
-    // protected static ?string $navigationIcon = 'heroicon-o-mail';
+    protected static ?string $navigationIcon = 'heroicon-o-academic-cap';
     protected static ?string $navigationGroup = 'Communication';
 
     public static function form(Form $form): Form

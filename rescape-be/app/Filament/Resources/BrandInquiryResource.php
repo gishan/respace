@@ -14,7 +14,7 @@ class BrandInquiryResource extends Resource
 {
     protected static ?string $model = BrandInquiry::class;
 
-    // protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-question-mark-circle';
     
     protected static ?string $navigationGroup = 'Inquiries';
 
