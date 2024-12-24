@@ -128,72 +128,28 @@
 <script setup>
 const mobileMenuOpen = ref(false)
 
-// Define props with default values matching the Filament block
-defineProps({
-  logoText: {
-    type: String,
-    default: 'Respace'
+const config = useRuntimeConfig();
+const { data: layoutData } = await useFetch(`${config.public.apiBase}/pages/layout`, {
+  server: true,
+  onError(error) {
+    console.error("Fetch error:", error);
   },
-  navLinks: {
-    type: Array,
-    default: () => [
-      { label: 'Home', url: '/' },
-      { label: 'About', url: '/about' },
-      { label: 'Terms & Privacy', url: '/terms' },
-      { label: 'FAQ', url: '/faq' },
-      { label: 'Contact Us', url: '/contact' }
-    ]
-  },
-  footerCompanyName: {
-    type: String,
-    default: 'Rescape'
-  },
-  footerCompanyDescription: {
-    type: String,
-    default: 'Your ultimate destination for finding the perfect space for your needs.'
-  },
-  quickLinks: {
-    type: Array,
-    default: () => [
-      { label: 'About Us', url: '/about' },
-      { label: 'Terms & Privacy', url: '/terms' }
-    ]
-  },
-  services: {
-    type: Array,
-    default: () => [
-      { label: 'Space Rental', url: '#' },
-      { label: 'Event Venues', url: '#' },
-      { label: 'Office Spaces', url: '#' },
-      { label: 'Meeting Rooms', url: '#' }
-    ]
-  },
-  contactAddressLine1: {
-    type: String,
-    default: '123 Business Street'
-  },
-  contactAddressLine2: {
-    type: String,
-    default: 'City, State 12345'
-  },
-  contactEmail: {
-    type: String,
-    default: 'contact@rescape.com'
-  },
-  contactPhone: {
-    type: String,
-    default: '(123) 456-7890'
-  },
-  socialLinks: {
-    type: Array,
-    default: () => [
-      { platform: 'Facebook', url: '#', icon: 'fa fa-facebook' },
-      { platform: 'Twitter', url: '#', icon: 'fa fa-twitter' },
-      { platform: 'Instagram', url: '#', icon: 'fa fa-instagram' },
-      { platform: 'LinkedIn', url: '#', icon: 'fa fa-linkedin' }
-    ]
-  }
-})
+});
+
+const data = layoutData?.value?.["data"]["blocks"][0].data;
+
+const logoText = data["logo_text"];
+const navLinks = data["nav_links"];
+const footerCompanyName = data["footer_company_name"];
+const footerCompanyDescription = data["footer_company_description"];
+const quickLinks = data["quick_links"];
+const services = data["services"];
+const contactAddressLine1 = data["contact_address_line1"];
+const contactAddressLine2 = data["contact_address_line2"];
+const contactEmail = data["contact_email"];
+const contactPhone = data["contact_phone"];
+const socialLinks = data["social_links"];
+
 </script>
 
 <style>
