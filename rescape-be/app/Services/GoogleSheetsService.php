@@ -20,13 +20,13 @@ class GoogleSheetsService
         $this->client->setScopes([Sheets::SPREADSHEETS]);
         
         $this->service = new Sheets($this->client);
-        $this->spreadsheetId = config('services.google.sheets.contact_spreadsheet_id');
+        $this->spreadsheetId = config('services.google.sheets.spreadsheet_id');
     }
 
     public function appendContact(Contact $contact): bool
     {
         try {
-            $range = 'Contacts!A:H'; // Adjust based on your sheet structure
+            $range = 'Contacts!A:H'; // Using Sheet1 as the default sheet name
             $values = [
                 [
                     $contact->created_at->format('Y-m-d H:i:s'),
@@ -43,11 +43,15 @@ class GoogleSheetsService
                 'values' => $values
             ]);
 
-            $this->service->spreadsheets_values->append(
+            $params = [
+                'valueInputOption' => 'RAW'
+            ];
+
+            $result = $this->service->spreadsheets_values->append(
                 $this->spreadsheetId,
                 $range,
                 $body,
-                ['valueInputOption' => 'RAW']
+                $params
             );
 
             $contact->update(['is_synced_to_sheets' => true]);

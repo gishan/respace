@@ -37,10 +37,8 @@ return [
 
     'google' => [
         'sheets' => [
-            'contact_spreadsheet_id' => env('GOOGLE_SHEETS_CONTACT_SPREADSHEET_ID'),
-            'inquiry_spreadsheet_id' => env('GOOGLE_SHEETS_INQUIRY_SPREADSHEET_ID'),
+            'spreadsheet_id' => env('GOOGLE_SHEETS_SPREADSHEET_ID'),
         ],
-        
     ],
 
 ];

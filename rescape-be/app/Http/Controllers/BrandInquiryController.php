@@ -16,13 +16,12 @@ class BrandInquiryController extends Controller
 
     public function __construct()
     {
-        $this->spreadsheetId = config('services.google.sheets.inquiry_spreadsheet_id');
-        
         $this->client = new Client();
         $this->client->setAuthConfig(storage_path('app/google-credentials.json'));
-        $this->client->addScope(Sheets::SPREADSHEETS);
+        $this->client->setScopes([Sheets::SPREADSHEETS]);
         
         $this->service = new Sheets($this->client);
+        $this->spreadsheetId = config('services.google.sheets.spreadsheet_id');
     }
 
     public function store(Request $request)
@@ -84,16 +83,31 @@ class BrandInquiryController extends Controller
             ];
 
             if ($this->spreadsheetId) {
-                $body = new ValueRange([
-                    'values' => $values
-                ]);
+                try {
+                    $body = new ValueRange([
+                        'values' => $values
+                    ]);
 
-                $this->service->spreadsheets_values->append(
-                    $this->spreadsheetId,
-                    'A1',
-                    $body,
-                    ['valueInputOption' => 'RAW']
-                );
+                    $params = [
+                        'valueInputOption' => 'RAW'
+                    ];
+
+                    $result = $this->service->spreadsheets_values->append(
+                        $this->spreadsheetId,
+                        'Inquiries!A1',  
+                        $body,
+                        $params
+                    );
+
+                    if (!$result->getUpdates()) {
+                        throw new \Exception('No cells were updated in Google Sheets');
+                    }
+                } catch (\Exception $e) {
+                    \Log::error('Google Sheets error: ' . $e->getMessage());
+                    throw $e;
+                }
+            } else {
+                \Log::warning('Spreadsheet ID is not configured');
             }
 
             return response()->json([
