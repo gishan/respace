@@ -14,7 +14,11 @@ class SpaceSubmissionResource extends Resource
 {
     protected static ?string $model = SpaceSubmission::class;
 
+    protected static ?string $navigationIcon = 'heroicon-o-building-office';
+
     protected static ?string $navigationLabel = 'Space Submissions';
+
+    protected static ?string $navigationGroup = 'Space Management';
 
     public static function form(Form $form): Form
     {

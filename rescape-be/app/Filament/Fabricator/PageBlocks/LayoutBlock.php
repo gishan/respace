@@ -140,6 +140,12 @@ class LayoutBlock extends PageBlock
                                             ->helperText('Font Awesome class name (e.g., fa fa-facebook)'),
                                     ])
                                     ->defaultItems(4)
+                                    ->default([
+                                        ['platform' => 'Facebook', 'url' => '#', 'icon' => 'fa fa-facebook'],
+                                        ['platform' => 'Twitter', 'url' => '#', 'icon' => 'fa fa-twitter'],
+                                        ['platform' => 'Instagram', 'url' => '#', 'icon' => 'fa fa-instagram'],
+                                        ['platform' => 'LinkedIn', 'url' => '#', 'icon' => 'fa fa-linkedin'],
+                                    ])
                                     ->collapsible()
                                     ->itemLabel(fn (array $state): ?string => $state['platform'] ?? null),
                             ]),
