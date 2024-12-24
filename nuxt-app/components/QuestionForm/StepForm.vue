@@ -301,27 +301,28 @@ async function handleSubmit() {
     
     // Format the data according to the API requirements
     const formData = {
-      brand_name: answers.value['brand-name'],
-      product_category: answers.value['product-category']?.id,
-      product_category_other: answers.value['product-category']?.other,
-      brand_stage: answers.value['brand-stage']?.id,
-      activation_purpose: answers.value['activation-purpose']?.id,
-      experience_type: answers.value['experience-type']?.id,
-      showcase_preference: answers.value['showcase-preference']?.id,
+      brand_name: answers.value['brand-name'] ?? "",
+      product_category: answers.value['product-category'] ?? "",
+      product_category_other: answers.value['product-category'] ?? "",
+      brand_stage: answers.value['brand-stage'] ?? "",
+      activation_purpose: answers.value['activation-purpose'] ?? "",
+      experience_type: answers.value['experience-type'] ?? "",
+      showcase_preference: answers.value['showcase-preference'] ?? "",
       target_demographic: answers.value['target-demographic']?.map(item => item.id) || [],
-      target_demographic_specific: answers.value['target-demographic']?.find(item => item.id === 'specific')?.other,
-      location_type: answers.value['location-type']?.id,
-      space_size: answers.value['space-size']?.id,
+      target_demographic_specific: answers.value['target-demographic']?.find(item => item.id === 'specific')?.other ?? "",
+      location_type: answers.value['location-type'] ?? "",
+      space_size: answers.value['space-size'] ?? "",
       // amenities: answers.value['amenities']?.map(item => item.id) || [],
-      budget: answers.value['budget']?.id,
-      timeline: answers.value['timeline']?.id,
-      duration: answers.value['duration']?.id,
-      special_requirements: answers.value['special-requirements'],
-      contact_name: answers.value['contact']?.name,
-      contact_email: answers.value['contact']?.email,
-      contact_phone: answers.value['contact']?.phone,
-      contact_company: answers.value['contact']?.company,
-      contact_role: answers.value['contact']?.role
+      budget: answers.value['budget'] ?? "",
+      timeline: answers.value['timeline'] ?? "",
+      duration: answers.value['duration'] ?? "",
+      special_requirements: answers.value['special-requirements'] ?? "",
+      contact_name: answers.value['name'] ?? "",
+      contact_email: answers.value['email'] ?? "",
+      contact_phone: answers.value['phone'] ?? "",
+      contact_company: answers.value['company'] ?? "any",
+      contact_role: answers.value['role'] ?? "any",
+      amenities: ["kitchen", "shelving", "changing", "storage", "tech", "av", "lighting", "visibility", "parking"],
     }
 
     console.log('Formatted data:', formData);
@@ -357,7 +358,7 @@ const isLastStep = () => currentStep.value === questions.length - 1
 
 <template>
   <div class="max-w-4xl mx-auto px-4 py-12">
-    <div class="mb-12">
+    <div class="mb-12 min-w-[400px]">
       <!-- Subtitle if exists -->
       <div v-if="questions[currentStep].subtitle" class="text-sm uppercase tracking-wider text-gray-600 mb-4 text-center">
         {{ questions[currentStep].subtitle }}
