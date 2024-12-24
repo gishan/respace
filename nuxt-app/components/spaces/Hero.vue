@@ -4,16 +4,16 @@
       <!-- Left Content -->
       <div class="md:w-1/2 space-y-6">
         <h1 class="text-5xl font-bold text-surface-black">
-          {{ block.data.title }}
+          {{ title }}
         </h1>
         <p class="text-xl text-gray-600">
-          {{ block.data.subtitle }}
+          {{ subtitle }}
         </p>
         <NuxtLink 
-          :to="block.data.button_link" 
+          :to="buttonLink" 
           class="inline-block bg-brand-red text-surface-white px-8 py-3 hover:bg-opacity-90 transition-colors"
         >
-          {{ block.data.button_text }}
+          {{ buttonText }}
         </NuxtLink>
       </div>
 
@@ -21,9 +21,9 @@
       <div class="md:w-1/2 mt-8 md:mt-0 flex justify-center">
         <div class="relative w-64 h-128">
           <img
-            v-if="block.data.image"
-            :src="block.data.image"
-            :alt="block.data.title"
+            v-if="image"
+            :src="image"
+            :alt="title"
             class="w-full h-full object-contain"
           />
         </div>
@@ -34,18 +34,25 @@
 
 <script setup>
 defineProps({
-  block: {
-    type: Object,
-    required: true,
-    default: () => ({
-      data: {
-        title: 'Find Your Perfect Space',
-        subtitle: 'Discover unique retail spaces for your brand',
-        button_text: 'Get Started',
-        button_link: '/contact',
-        image: null
-      }
-    })
+  title: {
+    type: String,
+    default: 'Find Your Perfect Space'
+  },
+  subtitle: {
+    type: String,
+    default: 'Discover unique retail spaces for your brand'
+  },
+  buttonText: {
+    type: String,
+    default: 'Get Started'
+  },
+  buttonLink: {
+    type: String,
+    default: '/contact'
+  },
+  image: {
+    type: String,
+    default: "https://dummyimage.com/720x600"
   }
 })
 </script>
